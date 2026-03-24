@@ -1,0 +1,202 @@
+:host {
+    display: block;
+    background: #0a0a1a;
+    min-height: 100vh;
+}
+
+.tetris-wrapper {
+    background: #0a0a1a;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    outline: none;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Name Entry Overlay */
+.name-entry-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 10, 26, 0.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.name-entry-box {
+    background: #16213e;
+    border: 2px solid #00cfcf;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    min-width: 320px;
+    box-shadow: 0 0 40px rgba(0, 207, 207, 0.3);
+}
+
+.tetris-title {
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: 12px;
+    background: linear-gradient(135deg, #00cfcf, #a000f0, #f0a000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 16px 0;
+    font-family: 'Courier New', monospace;
+}
+
+.game-over-title {
+    font-size: 42px;
+    font-weight: 900;
+    color: #f00000;
+    letter-spacing: 6px;
+    margin: 0 0 16px 0;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 20px rgba(240, 0, 0, 0.5);
+}
+
+.name-prompt {
+    color: #a0a0c0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.final-score {
+    color: #00cfcf;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.name-input {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.start-btn {
+    margin-top: 8px;
+}
+
+/* Game Layout */
+.game-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.board-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-label {
+    color: #00cfcf;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.game-canvas {
+    display: block;
+    border: 2px solid #00cfcf;
+    box-shadow: 0 0 20px rgba(0, 207, 207, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.5);
+    background: #0a0a1a;
+}
+
+/* Side Panel */
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 160px;
+}
+
+.panel-box {
+    background: #16213e;
+    border: 1px solid #2a2a5a;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.panel-title {
+    color: #6060a0;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.panel-value {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.next-canvas {
+    display: block;
+    background: #0a0a1a;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+/* Controls */
+.controls-box {
+    font-size: 11px;
+}
+
+.control-line {
+    color: #8080c0;
+    margin: 3px 0;
+    font-size: 11px;
+}
+
+/* High Scores */
+.scores-box {
+    min-width: 160px;
+}
+
+.score-row {
+    display: flex;
+    gap: 6px;
+    margin: 4px 0;
+    font-size: 11px;
+    align-items: center;
+}
+
+.score-rank {
+    color: #f0a000;
+    font-weight: bold;
+    min-width: 18px;
+}
+
+.score-name {
+    color: #a0a0e0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 75px;
+}
+
+.score-val {
+    color: #00cfcf;
+    font-weight: bold;
+    text-align: right;
+}
+
+.no-scores {
+    color: #4040608;
+    font-size: 11px;
+    color: #404060;
+    text-align: center;
+    padding: 4px 0;
+}

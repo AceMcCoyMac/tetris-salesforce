@@ -1,0 +1,98 @@
+<template>
+    <div class="tetris-wrapper" onkeydown={handleKeyDown} tabindex="0" onclick={focusGame}>
+
+        <!-- Player Name Entry -->
+        <template if:true={showNameEntry}>
+            <div class="name-entry-overlay">
+                <div class="name-entry-box">
+                    <h1 class="tetris-title">TETRIS</h1>
+                    <p class="name-prompt">Enter your name to play</p>
+                    <lightning-input
+                        label="Player Name"
+                        value={playerName}
+                        onchange={handleNameChange}
+                        maxlength="30"
+                        class="name-input"
+                    ></lightning-input>
+                    <lightning-button
+                        label="Start Game"
+                        variant="brand"
+                        onclick={startGame}
+                        class="start-btn"
+                    ></lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- Game Over Overlay -->
+        <template if:true={gameOver}>
+            <div class="name-entry-overlay">
+                <div class="name-entry-box">
+                    <h1 class="game-over-title">GAME OVER</h1>
+                    <p class="final-score">Score: {score}</p>
+                    <p class="final-score">Lines: {linesCleared} | Level: {level}</p>
+                    <lightning-button
+                        label="Play Again"
+                        variant="brand"
+                        onclick={resetGame}
+                        class="start-btn"
+                    ></lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- Main Game -->
+        <template if:true={showGame}>
+            <div class="game-container">
+                <!-- Game Board -->
+                <div class="board-section">
+                    <div class="player-label">{playerName}</div>
+                    <canvas class="game-canvas" onkeydown={handleKeyDown}></canvas>
+                </div>
+
+                <!-- Side Panel -->
+                <div class="side-panel">
+                    <div class="panel-box">
+                        <div class="panel-title">NEXT</div>
+                        <canvas class="next-canvas"></canvas>
+                    </div>
+                    <div class="panel-box">
+                        <div class="panel-title">SCORE</div>
+                        <div class="panel-value">{score}</div>
+                    </div>
+                    <div class="panel-box">
+                        <div class="panel-title">LEVEL</div>
+                        <div class="panel-value">{level}</div>
+                    </div>
+                    <div class="panel-box">
+                        <div class="panel-title">LINES</div>
+                        <div class="panel-value">{linesCleared}</div>
+                    </div>
+                    <div class="panel-box controls-box">
+                        <div class="panel-title">CONTROLS</div>
+                        <div class="control-line">← → Move</div>
+                        <div class="control-line">↑ Rotate</div>
+                        <div class="control-line">↓ Soft Drop</div>
+                        <div class="control-line">SPACE Hard Drop</div>
+                        <div class="control-line">P Pause</div>
+                    </div>
+
+                    <!-- High Scores -->
+                    <div class="panel-box scores-box">
+                        <div class="panel-title">HIGH SCORES</div>
+                        <template for:each={highScores} for:item="hs" for:index="i">
+                            <div key={hs.Id} class="score-row">
+                                <span class="score-rank">{hs.rank}</span>
+                                <span class="score-name">{hs.Player_Name__c}</span>
+                                <span class="score-val">{hs.Score__c}</span>
+                            </div>
+                        </template>
+                        <template if:false={highScores.length}>
+                            <div class="no-scores">No scores yet!</div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

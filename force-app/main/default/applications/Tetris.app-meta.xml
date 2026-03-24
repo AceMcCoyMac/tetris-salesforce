@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>Tetris_Console</defaultLandingTab>
+    <description>Play Tetris and track high scores</description>
+    <formFactors>Large</formFactors>
+    <formFactors>Small</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Tetris</label>
+    <navType>Standard</navType>
+    <tabs>Tetris_Console</tabs>
+    <tabs>Score__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>
