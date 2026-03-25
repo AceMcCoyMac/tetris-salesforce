@@ -1,14 +1,19 @@
 {
   "packageDirectories": [
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "force-app",
       "default": true,
       "package": "Tetris",
-      "versionName": "ver 1.0",
-      "versionNumber": "1.0.0.NEXT"
+      "versionDescription": "Playable Tetris game with high score tracking for Salesforce"
     }
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "59.0"
+  "sourceApiVersion": "59.0",
+  "packageAliases": {
+    "Tetris": "0HogK00000019MDSAY",
+    "Tetris@0.1.0-1": "04tgK000000AsiHQAS"
+  }
 }
