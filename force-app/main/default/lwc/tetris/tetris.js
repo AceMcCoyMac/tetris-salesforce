@@ -90,8 +90,9 @@ export default class Tetris extends LightningElement {
     }
 
     renderedCallback() {
-        // Re-focus after each render so keyboard events never get lost
-        if (this.showGame || this.showNameEntry || this.gameOver || this.showScoresView) {
+        // Auto-focus the wrapper for keyboard events — but NOT during name entry,
+        // since that would steal focus from the input after every keystroke
+        if (this.showGame || this.gameOver || this.showScoresView) {
             setTimeout(() => this.focusWrapper(), 50);
         }
     }
