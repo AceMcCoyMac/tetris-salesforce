@@ -194,9 +194,72 @@
 }
 
 .no-scores {
-    color: #4040608;
     font-size: 11px;
     color: #404060;
     text-align: center;
     padding: 4px 0;
+}
+
+/* ESC hint on game over */
+.esc-hint {
+    color: #6060a0;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/* Full scores view */
+.scores-full-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.scores-table {
+    background: #16213e;
+    border: 1px solid #2a2a5a;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+    min-width: 480px;
+    font-family: 'Courier New', monospace;
+}
+
+.scores-header {
+    display: flex;
+    gap: 0;
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #2a2a5a;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #6060a0;
+}
+
+.scores-table-row {
+    display: flex;
+    gap: 0;
+    padding: 6px 0;
+    border-bottom: 1px solid #1a1a30;
+    font-size: 14px;
+    align-items: center;
+}
+
+.scores-table-row:last-child {
+    border-bottom: none;
+}
+
+.sh-rank  { width: 36px;  color: #f0a000; font-weight: bold; }
+.sh-name  { flex: 1;      color: #a0a0e0; }
+.sh-score { width: 100px; text-align: right; color: #00cfcf; font-weight: bold; }
+.sh-lines { width: 70px;  text-align: right; color: #a0a0e0; }
+.sh-level { width: 50px;  text-align: right; color: #a0a0e0; }
+
+.no-scores-msg {
+    color: #404060;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
 }

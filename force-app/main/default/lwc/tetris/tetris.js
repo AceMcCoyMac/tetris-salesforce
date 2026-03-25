@@ -32,8 +32,6 @@ const TETROMINOES = {
 };
 
 const TETROMINO_KEYS = Object.keys(TETROMINOES);
-
-// Scoring
 const LINE_SCORES = [0, 100, 300, 500, 800];
 
 function randomTetromino() {
@@ -47,8 +45,7 @@ function createBoard() {
 
 function rotate(matrix) {
     const N = matrix.length;
-    const result = matrix.map((row, i) => row.map((_, j) => matrix[N - 1 - j][i]));
-    return result;
+    return matrix.map((row, i) => row.map((_, j) => matrix[N - 1 - j][i]));
 }
 
 export default class Tetris extends LightningElement {
@@ -56,6 +53,7 @@ export default class Tetris extends LightningElement {
     @track showNameEntry = true;
     @track showGame = false;
     @track gameOver = false;
+    @track showScoresView = false;
     @track score = 0;
     @track level = 1;
     @track linesCleared = 0;
@@ -74,12 +72,33 @@ export default class Tetris extends LightningElement {
     nextCtx = null;
     wiredScoresResult = null;
 
+    get hasHighScores() {
+        return this.highScores && this.highScores.length > 0;
+    }
+
     @wire(getHighScores)
     wiredScores(result) {
         this.wiredScoresResult = result;
         if (result.data) {
             this.highScores = result.data.map((s, i) => ({ ...s, rank: `${i + 1}.` }));
         }
+    }
+
+    connectedCallback() {
+        // Focus the wrapper as soon as the component mounts so keyboard works immediately
+        setTimeout(() => this.focusWrapper(), 50);
+    }
+
+    renderedCallback() {
+        // Re-focus after each render so keyboard events never get lost
+        if (this.showGame || this.showNameEntry || this.gameOver || this.showScoresView) {
+            setTimeout(() => this.focusWrapper(), 50);
+        }
+    }
+
+    focusWrapper() {
+        const wrapper = this.template.querySelector('.tetris-wrapper');
+        if (wrapper) wrapper.focus();
     }
 
     handleNameChange(event) {
@@ -92,6 +111,7 @@ export default class Tetris extends LightningElement {
         }
         this.playerName = this.playerName.trim();
         this.showNameEntry = false;
+        this.showScoresView = false;
         this.showGame = true;
         this.gameOver = false;
         this.initGame();
@@ -99,6 +119,7 @@ export default class Tetris extends LightningElement {
 
     resetGame() {
         this.gameOver = false;
+        this.showScoresView = false;
         this.showGame = true;
         this.initGame();
     }
@@ -110,7 +131,6 @@ export default class Tetris extends LightningElement {
         this.linesCleared = 0;
         this.paused = false;
 
-        // Get canvas refs after render
         setTimeout(() => {
             this.canvas = this.template.querySelector('.game-canvas');
             this.nextCanvas = this.template.querySelector('.next-canvas');
@@ -126,14 +146,9 @@ export default class Tetris extends LightningElement {
 
             this.next = randomTetromino();
             this.spawnPiece();
-            this.focusGame();
+            this.focusWrapper();
             this.startLoop();
         }, 100);
-    }
-
-    focusGame() {
-        const wrapper = this.template.querySelector('.tetris-wrapper');
-        if (wrapper) wrapper.focus();
     }
 
     spawnPiece() {
@@ -222,7 +237,18 @@ export default class Tetris extends LightningElement {
     }
 
     handleKeyDown(event) {
-        if (this.showNameEntry || this.gameOver) return;
+        // ESC on game over → show scores view
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            if (this.gameOver) {
+                this.gameOver = false;
+                this.showScoresView = true;
+            }
+            return;
+        }
+
+        if (this.showNameEntry || this.gameOver || this.showScoresView) return;
+
         switch (event.key) {
             case 'ArrowLeft':
                 event.preventDefault();
@@ -263,7 +289,6 @@ export default class Tetris extends LightningElement {
 
     rotatePiece() {
         const rotated = rotate(this.current.shape);
-        // Wall kick attempts
         const kicks = [0, 1, -1, 2, -2];
         for (let kick of kicks) {
             if (this.isValid(rotated, this.currentX + kick, this.currentY)) {
@@ -290,7 +315,6 @@ export default class Tetris extends LightningElement {
         if (!this.ctx) return;
         const ctx = this.ctx;
 
-        // Background
         ctx.fillStyle = '#0a0a1a';
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -336,11 +360,9 @@ export default class Tetris extends LightningElement {
     drawBlock(ctx, x, y, color, size) {
         ctx.fillStyle = color;
         ctx.fillRect(x * size + 1, y * size + 1, size - 2, size - 2);
-        // Highlight
         ctx.fillStyle = 'rgba(255,255,255,0.25)';
         ctx.fillRect(x * size + 1, y * size + 1, size - 2, 4);
         ctx.fillRect(x * size + 1, y * size + 1, 4, size - 2);
-        // Shadow
         ctx.fillStyle = 'rgba(0,0,0,0.3)';
         ctx.fillRect(x * size + 1, y * size + size - 5, size - 2, 4);
     }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RecentlyViewed</fullName>
+    <filterScope>Everything</filterScope>
+    <label>Recently Viewed</label>
+    <columns>Player_Name__c</columns>
+    <columns>Score__c</columns>
+    <columns>Lines_Cleared__c</columns>
+    <columns>Level__c</columns>
+    <columns>CREATED_DATE</columns>
+</ListView>

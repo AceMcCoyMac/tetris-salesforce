@@ -1,5 +1,5 @@
 <template>
-    <div class="tetris-wrapper" onkeydown={handleKeyDown} tabindex="0" onclick={focusGame}>
+    <div class="tetris-wrapper" onkeydown={handleKeyDown} tabindex="0">
 
         <!-- Player Name Entry -->
         <template if:true={showNameEntry}>
@@ -37,7 +37,42 @@
                         onclick={resetGame}
                         class="start-btn"
                     ></lightning-button>
+                    <p class="esc-hint">Press ESC to view high scores</p>
                 </div>
+            </div>
+        </template>
+
+        <!-- High Scores View (ESC from game over) -->
+        <template if:true={showScoresView}>
+            <div class="scores-full-view">
+                <h1 class="tetris-title">HIGH SCORES</h1>
+                <div class="scores-table">
+                    <div class="scores-header">
+                        <span class="sh-rank">#</span>
+                        <span class="sh-name">PLAYER</span>
+                        <span class="sh-score">SCORE</span>
+                        <span class="sh-lines">LINES</span>
+                        <span class="sh-level">LVL</span>
+                    </div>
+                    <template for:each={highScores} for:item="hs">
+                        <div key={hs.Id} class="scores-table-row">
+                            <span class="sh-rank">{hs.rank}</span>
+                            <span class="sh-name">{hs.Player_Name__c}</span>
+                            <span class="sh-score">{hs.Score__c}</span>
+                            <span class="sh-lines">{hs.Lines_Cleared__c}</span>
+                            <span class="sh-level">{hs.Level__c}</span>
+                        </div>
+                    </template>
+                    <template if:false={hasHighScores}>
+                        <div class="no-scores-msg">No scores yet — be the first!</div>
+                    </template>
+                </div>
+                <lightning-button
+                    label="New Game"
+                    variant="brand"
+                    onclick={resetGame}
+                    class="start-btn"
+                ></lightning-button>
             </div>
         </template>
 
@@ -47,7 +82,7 @@
                 <!-- Game Board -->
                 <div class="board-section">
                     <div class="player-label">{playerName}</div>
-                    <canvas class="game-canvas" onkeydown={handleKeyDown}></canvas>
+                    <canvas class="game-canvas"></canvas>
                 </div>
 
                 <!-- Side Panel -->
@@ -80,14 +115,14 @@
                     <!-- High Scores -->
                     <div class="panel-box scores-box">
                         <div class="panel-title">HIGH SCORES</div>
-                        <template for:each={highScores} for:item="hs" for:index="i">
+                        <template for:each={highScores} for:item="hs">
                             <div key={hs.Id} class="score-row">
                                 <span class="score-rank">{hs.rank}</span>
                                 <span class="score-name">{hs.Player_Name__c}</span>
                                 <span class="score-val">{hs.Score__c}</span>
                             </div>
                         </template>
-                        <template if:false={highScores.length}>
+                        <template if:false={hasHighScores}>
                             <div class="no-scores">No scores yet!</div>
                         </template>
                     </div>
